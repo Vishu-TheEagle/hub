@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE MAIN 2026 – Mock Test | EDUNITI</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0d14;--bg2:#111520;--bg3:#181d2b;--card:#1a2035;
+    --border:#2a3050;--accent:#4f8ef7;--accent2:#f7c94f;
+    --green:#3ecf8e;--red:#f75d5d;--purple:#a78bfa;
+    --text:#e8ecf4;--muted:#8892aa;
+    --font:'IBM Plex Sans',sans-serif;--mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;}
+  .header{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .brand{font-family:var(--mono);font-weight:600;font-size:13px;color:var(--accent);letter-spacing:.08em;}
+  .test-title{font-size:13px;color:var(--muted);}
+  .header-left{display:flex;align-items:center;gap:16px;}
+  .timer{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--accent2);background:rgba(247,201,79,.1);border:1px solid rgba(247,201,79,.3);padding:6px 16px;border-radius:6px;letter-spacing:.05em;}
+  .timer.warning{color:var(--red);background:rgba(247,93,93,.1);border-color:rgba(247,93,93,.3);animation:blink 1s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.6}}
+  .layout{display:flex;height:calc(100vh - 56px);}
+  .sidebar{width:260px;min-width:260px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+  .sidebar-header{padding:16px;border-bottom:1px solid var(--border);}
+  .sidebar-title{font-size:11px;font-family:var(--mono);color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
+  .legend-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0;}
+  .ld-not{background:var(--bg3);border:1px solid var(--border);}
+  .ld-answered{background:var(--green);}
+  .ld-marked{background:var(--purple);}
+  .ld-skipped{background:var(--red);opacity:.7;}
+  .q-grid{padding:12px;overflow-y:auto;flex:1;}
+  .q-grid-inner{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;}
+  .qnum{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:var(--mono);font-weight:500;border-radius:4px;cursor:pointer;border:1px solid var(--border);background:var(--bg3);color:var(--muted);transition:all .15s;}
+  .qnum:hover{border-color:var(--accent);color:var(--accent);}
+  .qnum.current{border-color:var(--accent);color:var(--accent);background:rgba(79,142,247,.15);}
+  .qnum.answered{background:var(--green);border-color:var(--green);color:#0a1f14;font-weight:600;}
+  .qnum.marked{background:var(--purple);border-color:var(--purple);color:white;}
+  .qnum.skipped{background:rgba(247,93,93,.3);border-color:var(--red);color:var(--red);}
+  .sidebar-stats{padding:14px 16px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+  .stat-box{text-align:center;padding:8px 4px;border-radius:6px;background:var(--bg3);}
+  .stat-num{font-family:var(--mono);font-size:18px;font-weight:600;}
+  .stat-label{font-size:10px;color:var(--muted);margin-top:2px;}
+  .sn-ans{color:var(--green);}
+  .sn-skip{color:var(--red);}
+  .sn-rem{color:var(--muted);}
+  .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+  .q-nav-bar{padding:12px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2);flex-wrap:wrap;gap:8px;}
+  .q-counter{font-family:var(--mono);font-size:13px;color:var(--muted);}
+  .q-counter span{color:var(--text);font-weight:600;}
+  .nav-btns{display:flex;gap:6px;flex-wrap:wrap;}
+  .btn{padding:7px 14px;font-size:13px;font-family:var(--font);border-radius:6px;cursor:pointer;font-weight:500;transition:all .15s;border:1px solid;}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--muted);}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:white;}
+  .btn-primary:hover{background:#3a7de0;}
+  .btn-mark{background:rgba(167,139,250,.15);border-color:var(--purple);color:var(--purple);}
+  .btn-mark:hover{background:rgba(167,139,250,.25);}
+  .btn-submit{background:rgba(62,207,142,.15);border-color:var(--green);color:var(--green);}
+  .btn-submit:hover{background:rgba(62,207,142,.25);}
+  .q-area{flex:1;overflow-y:auto;padding:28px 32px;}
+  .q-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-family:var(--mono);color:var(--accent);background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.3);padding:3px 10px;border-radius:4px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.08em;}
+  .q-text{font-size:15px;line-height:1.8;color:var(--text);margin-bottom:20px;max-width:800px;}
+  .fig-wrap{margin:16px 0 24px;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;display:inline-block;}
+  .fig-wrap svg{display:block;}
+  .options{display:flex;flex-direction:column;gap:10px;max-width:680px;}
+  .option{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border:1px solid var(--border);border-radius:8px;background:var(--card);cursor:pointer;transition:all .15s;font-size:14px;line-height:1.6;}
+  .option:hover{border-color:var(--accent);background:rgba(79,142,247,.05);}
+  .option.selected{border-color:var(--accent);background:rgba(79,142,247,.12);}
+  .option-key{width:26px;height:26px;min-width:26px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--muted);transition:all .15s;flex-shrink:0;margin-top:1px;}
+  .option.selected .option-key{background:var(--accent);border-color:var(--accent);color:white;}
+  .integer-input-wrap{max-width:300px;}
+  .integer-label{font-size:13px;color:var(--muted);margin-bottom:10px;}
+  .integer-input{width:100%;padding:14px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:20px;font-weight:500;outline:none;transition:border .15s;}
+  .integer-input:focus{border-color:var(--accent);}
+  .integer-input::placeholder{color:var(--muted);font-size:14px;}
+  .result-screen{display:none;flex:1;align-items:flex-start;justify-content:center;padding:40px;flex-direction:column;gap:32px;overflow-y:auto;}
+  .result-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:40px 48px;max-width:700px;width:100%;}
+  .result-title{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .result-score{font-size:64px;font-weight:600;color:var(--accent2);font-family:var(--mono);line-height:1;margin-bottom:4px;}
+  .result-max{font-size:16px;color:var(--muted);margin-bottom:32px;}
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+  .res-box{background:var(--card);border-radius:10px;padding:16px;text-align:center;}
+  .res-num{font-size:28px;font-weight:600;font-family:var(--mono);}
+  .res-lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+  .rn-c{color:var(--green);}
+  .rn-w{color:var(--red);}
+  .rn-u{color:var(--muted);}
+  .result-breakdown{border-top:1px solid var(--border);padding-top:20px;}
+  .rb-title{font-size:12px;color:var(--muted);margin-bottom:12px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;}
+  .rb-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px;}
+  .rb-qn{font-family:var(--mono);color:var(--muted);width:32px;}
+  .rb-ans{flex:1;}
+  .rb-correct{color:var(--green);}
+  .rb-wrong{color:var(--red);}
+  .rb-skip{color:var(--muted);}
+  .rb-key{font-family:var(--mono);font-size:12px;background:var(--card);padding:2px 8px;border-radius:4px;}
+  .rb-scroll{max-height:300px;overflow-y:auto;}
+  .btn-retake{margin-top:24px;padding:12px 32px;font-size:14px;}
+  ::-webkit-scrollbar{width:5px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .svg-label{fill:#8892aa;font-family:'IBM Plex Sans',sans-serif;font-size:12px;}
+  .svg-label-white{fill:#e8ecf4;font-family:'IBM Plex Sans',sans-serif;font-size:12px;}
+  .svg-line{stroke:#4f8ef7;stroke-width:1.5;fill:none;}
+  .svg-arrow{stroke:#4f8ef7;stroke-width:1.5;fill:#4f8ef7;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="brand">EDUNITI</div>
+    <div class="test-title">JEE MAIN 2026 – 75Q Mock Test (Part 2)</div>
+  </div>
+  <div class="timer" id="timer">03:00:00</div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">Question Palette</div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot ld-answered"></div>Answered</div>
+        <div class="legend-item"><div class="legend-dot ld-marked"></div>Marked</div>
+        <div class="legend-item"><div class="legend-dot ld-skipped"></div>Skipped</div>
+        <div class="legend-item"><div class="legend-dot ld-not"></div>Not visited</div>
+      </div>
+    </div>
+    <div class="q-grid"><div class="q-grid-inner" id="qpalette"></div></div>
+    <div class="sidebar-stats">
+      <div class="stat-box"><div class="stat-num sn-ans" id="s-ans">0</div><div class="stat-label">Answered</div></div>
+      <div class="stat-box"><div class="stat-num sn-skip" id="s-skip">0</div><div class="stat-label">Skipped</div></div>
+      <div class="stat-box"><div class="stat-num sn-rem" id="s-rem">75</div><div class="stat-label">Remaining</div></div>
+    </div>
+  </div>
+
+  <div class="main" id="main-panel">
+    <div class="q-nav-bar">
+      <div class="q-counter">Question <span id="qcur">1</span> of <span>75</span></div>
+      <div class="nav-btns">
+        <button class="btn btn-ghost" onclick="prevQ()">← Prev</button>
+        <button class="btn btn-mark" onclick="markReview()">★ Mark</button>
+        <button class="btn btn-ghost" onclick="clearResponse()">Clear</button>
+        <button class="btn btn-ghost" onclick="nextQ()">Next →</button>
+        <button class="btn btn-submit" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="q-area" id="q-area"></div>
+    <div class="result-screen" id="result-screen"></div>
+  </div>
+</div>
+
+<script>
+const answerKey={1:'3',2:'4',3:'2',4:'2',5:'2',6:'3',7:'4',8:'4',9:'600',10:'6',11:'240',12:'C',13:'2',14:'15',15:'C',16:'44',17:'27',18:'B',19:'4',20:'2',21:'D',22:'1',23:'1',24:'4',25:'25',26:'2',27:'1',28:'4',29:'4',30:'1',31:'1',32:'3',33:'2',34:'2',35:'4',36:'2',37:'4',38:'1',39:'5',40:'4',41:'4',42:'250',43:'1',44:'4',45:'3',46:'4',47:'2',48:'6000',49:'2',50:'30',51:'500',52:'2',53:'1',54:'b',55:'c',56:'40',57:'33',58:'1',59:'1',60:'288',61:'2',62:'68',63:'3',64:'1',65:'240',66:'4',67:'3',68:'30',69:'4',70:'4',71:'3',72:'1',73:'2',74:'2',75:'3'};
+
+// SVG FIGURES
+const figs = {
+  // Q3: Doubly inclined plane with two blocks M and m
+  3: `<svg width="280" height="180" viewBox="0 0 280 180">
+    <defs><marker id="arr3" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- ground -->
+    <line x1="20" y1="155" x2="260" y2="155" stroke="#4a5568" stroke-width="2"/>
+    <!-- left ramp 53deg -->
+    <polygon points="20,155 130,155 20,50" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- right ramp 37deg -->
+    <polygon points="130,155 260,155 260,70" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- pulley at top -->
+    <circle cx="130" cy="50" r="8" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <circle cx="130" cy="50" r="2" fill="#f7c94f"/>
+    <!-- string left -->
+    <line x1="122" y1="50" x2="75" y2="100" stroke="#e8ecf4" stroke-width="1" stroke-dasharray="3,2"/>
+    <!-- string right -->
+    <line x1="138" y1="50" x2="205" y2="95" stroke="#e8ecf4" stroke-width="1" stroke-dasharray="3,2"/>
+    <!-- Block M on left -->
+    <rect x="60" y="92" width="28" height="22" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5" transform="rotate(-53,74,103)"/>
+    <text x="65" y="106" fill="#e8ecf4" font-size="13" font-family="IBM Plex Sans">M</text>
+    <!-- Block m on right -->
+    <rect x="194" y="87" width="24" height="20" rx="3" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5" transform="rotate(37,206,97)"/>
+    <text x="200" y="101" fill="#f7c94f" font-size="13" font-family="IBM Plex Sans">m</text>
+    <!-- angles -->
+    <text x="38" y="150" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">53°</text>
+    <text x="228" y="150" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">37°</text>
+  </svg>`,
+
+  // Q4: Circular table rotating, groove radial, ball inside
+  4: `<svg width="260" height="200" viewBox="0 0 260 200">
+    <!-- table ellipse top view -->
+    <ellipse cx="110" cy="110" rx="90" ry="55" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- center -->
+    <circle cx="110" cy="110" r="4" fill="#f7c94f"/>
+    <!-- radial groove -->
+    <line x1="110" y1="110" x2="200" y2="110" stroke="#4f8ef7" stroke-width="1" stroke-dasharray="4,2"/>
+    <!-- ball at 1m (scaled) -->
+    <circle cx="140" cy="110" r="7" fill="#3ecf8e" stroke="#e8ecf4" stroke-width="1"/>
+    <!-- ball at 3m (edge) -->
+    <circle cx="196" cy="110" r="5" fill="#f75d5d" stroke="#e8ecf4" stroke-width="0.5" opacity="0.5"/>
+    <!-- omega arrow -->
+    <path d="M 110 60 A 50 30 0 0 1 160 60" fill="none" stroke="#f7c94f" stroke-width="1.5" marker-end="url(#arrQ4)"/>
+    <defs><marker id="arrQ4" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker></defs>
+    <text x="162" y="58" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">ω</text>
+    <!-- dimension: 1m -->
+    <line x1="110" y1="122" x2="140" y2="122" stroke="#8892aa" stroke-width="1"/>
+    <text x="118" y="134" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">1m</text>
+    <!-- dimension: 3m -->
+    <line x1="110" y1="130" x2="196" y2="130" stroke="#8892aa" stroke-width="1"/>
+    <text x="143" y="144" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">3m</text>
+    <text x="220" y="114" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">∞ (edge)</text>
+  </svg>`,
+
+  // Q16: Complex circuit (simplified)
+  16: `<svg width="380" height="180" viewBox="0 0 380 180">
+    <defs><marker id="a16" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- top wire -->
+    <line x1="20" y1="30" x2="360" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="150" x2="360" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- left vertical (source) -->
+    <line x1="20" y1="30" x2="20" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- source label -->
+    <text x="4" y="95" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">220V</text>
+    <!-- Elements top row -->
+    <!-- 8Ω resistor -->
+    <rect x="35" y="22" width="30" height="16" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="38" y="33" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">8Ω</text>
+    <!-- 20mH inductor -->
+    <path d="M72,30 Q77,20 82,30 Q87,20 92,30 Q97,20 102,30" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="75" y="20" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">20mH</text>
+    <!-- 6μF cap -->
+    <line x1="108" y1="22" x2="108" y2="38" stroke="#3ecf8e" stroke-width="2"/>
+    <line x1="114" y1="22" x2="114" y2="38" stroke="#3ecf8e" stroke-width="2"/>
+    <line x1="102" y1="30" x2="108" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="114" y1="30" x2="120" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="103" y="20" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">6μF</text>
+    <!-- 4Ω -->
+    <rect x="125" y="22" width="25" height="16" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="128" y="33" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">4Ω</text>
+    <!-- 50mH -->
+    <path d="M155,30 Q160,20 165,30 Q170,20 175,30 Q180,20 185,30" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="156" y="20" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">50mH</text>
+    <!-- 8Ω -->
+    <rect x="190" y="22" width="25" height="16" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="193" y="33" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">8Ω</text>
+    <!-- vertical branches -->
+    <!-- 0.5μF -->
+    <line x1="82" y1="30" x2="82" y2="80" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="78" y1="80" x2="86" y2="80" stroke="#3ecf8e" stroke-width="2"/>
+    <line x1="78" y1="86" x2="86" y2="86" stroke="#3ecf8e" stroke-width="2"/>
+    <line x1="82" y1="86" x2="82" y2="110" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="87" y="88" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">0.5μF</text>
+    <!-- bottom row L=1Ω, 0.8μF, 4Ω, 0.8μF, 2Ω -->
+    <line x1="20" y1="110" x2="360" y2="110" stroke="#4f8ef7" stroke-width="1" stroke-dasharray="2,2" opacity="0.5"/>
+    <text x="30" y="135" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">1Ω  0.8μF  4Ω  0.8μF  2Ω</text>
+    <text x="80" y="165" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">I = ? at very high frequency</text>
+    <!-- right vertical -->
+    <line x1="360" y1="30" x2="360" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+  </svg>`,
+
+  // Q17: Prism with liquid - equilateral triangle prism
+  17: `<svg width="240" height="200" viewBox="0 0 240 200">
+    <!-- Equilateral triangle prism -->
+    <polygon points="120,20 30,170 210,170" fill="rgba(79,142,247,0.1)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- Label vertices -->
+    <text x="113" y="15" fill="#e8ecf4" font-size="12" font-family="IBM Plex Sans">A</text>
+    <text x="18" y="178" fill="#e8ecf4" font-size="12" font-family="IBM Plex Sans">C</text>
+    <text x="212" y="178" fill="#e8ecf4" font-size="12" font-family="IBM Plex Sans">B</text>
+    <!-- liquid region (left face AC) -->
+    <polygon points="30,170 120,20 30,20" fill="rgba(62,207,142,0.15)" stroke="none"/>
+    <text x="35" y="100" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">liquid</text>
+    <text x="35" y="114" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">n</text>
+    <!-- glass label -->
+    <text x="110" y="140" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">μ=1.5</text>
+    <text x="108" y="154" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">glass</text>
+    <!-- incident ray from left hitting AC at 60deg -->
+    <defs>
+      <marker id="arr17" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker>
+    </defs>
+    <line x1="5" y1="80" x2="50" y2="108" stroke="#f7c94f" stroke-width="1.5" marker-end="url(#arr17)"/>
+    <text x="2" y="75" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">60°</text>
+    <!-- refracted ray grazes along AC -->
+    <line x1="50" y1="108" x2="30" y2="170" stroke="#3ecf8e" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <text x="2" y="155" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">grazes AC</text>
+    <!-- normal at incidence -->
+    <line x1="50" y1="108" x2="78" y2="108" stroke="#8892aa" stroke-width="1" stroke-dasharray="2,2"/>
+  </svg>`,
+
+  // Q18: I-V diode curve
+  18: `<svg width="260" height="200" viewBox="0 0 260 200">
+    <!-- axes -->
+    <line x1="40" y1="170" x2="250" y2="170" stroke="#4a5568" stroke-width="1.5"/>
+    <line x1="40" y1="170" x2="40" y2="10" stroke="#4a5568" stroke-width="1.5"/>
+    <!-- axis labels -->
+    <text x="245" y="178" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">V</text>
+    <text x="14" y="14" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">I(mA)</text>
+    <!-- I-V curve: exponential -->
+    <path d="M40,168 L90,167 L130,164 L150,155 L165,135 L175,100 L185,50 L192,20" fill="none" stroke="#3ecf8e" stroke-width="2"/>
+    <!-- gridlines -->
+    <line x1="40" y1="160" x2="245" y2="160" stroke="#2a3050" stroke-width="0.5" stroke-dasharray="2,3"/>
+    <line x1="40" y1="120" x2="245" y2="120" stroke="#2a3050" stroke-width="0.5" stroke-dasharray="2,3"/>
+    <line x1="40" y1="60" x2="245" y2="60" stroke="#2a3050" stroke-width="0.5" stroke-dasharray="2,3"/>
+    <!-- x ticks -->
+    <line x1="130" y1="168" x2="130" y2="172" stroke="#8892aa" stroke-width="1"/>
+    <text x="123" y="182" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">2</text>
+    <line x1="140" y1="168" x2="140" y2="172" stroke="#8892aa" stroke-width="1"/>
+    <text x="133" y="182" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">2.1</text>
+    <line x1="175" y1="168" x2="175" y2="172" stroke="#8892aa" stroke-width="1"/>
+    <text x="171" y="182" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">4</text>
+    <line x1="185" y1="168" x2="185" y2="172" stroke="#8892aa" stroke-width="1"/>
+    <text x="181" y="182" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">4.2</text>
+    <!-- y ticks -->
+    <text x="26" y="164" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">5</text>
+    <text x="20" y="124" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">10</text>
+    <text x="14" y="64" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">200</text>
+    <!-- dotted reference lines -->
+    <line x1="130" y1="155" x2="40" y2="155" stroke="#f7c94f" stroke-width="0.8" stroke-dasharray="3,2"/>
+    <line x1="175" y1="100" x2="40" y2="100" stroke="#f75d5d" stroke-width="0.8" stroke-dasharray="3,2"/>
+    <text x="44" y="153" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">≈10</text>
+    <text x="44" y="98" fill="#f75d5d" font-size="9" font-family="IBM Plex Sans">≈250</text>
+    <text x="240" y="175" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">V(volt)</text>
+  </svg>`,
+
+  // Q19: Two prisms combined
+  19: `<svg width="280" height="160" viewBox="0 0 280 160">
+    <defs><marker id="arr19" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker></defs>
+    <!-- Prism P1 (6 deg) -->
+    <polygon points="30,130 130,130 30,50" fill="rgba(79,142,247,0.1)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="38" y="100" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">P₁</text>
+    <text x="32" y="48" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">A₁=6°</text>
+    <!-- Prism P2 (5 deg, inverted) -->
+    <polygon points="130,130 230,130 230,60" fill="rgba(247,201,79,0.1)" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="185" y="100" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">P₂</text>
+    <text x="200" y="58" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">A₂=5°</text>
+    <!-- incident ray -->
+    <line x1="5" y1="100" x2="30" y2="100" stroke="#f7c94f" stroke-width="1.5" marker-end="url(#arr19)"/>
+    <!-- deviation angle delta -->
+    <line x1="230" y1="100" x2="255" y2="90" stroke="#3ecf8e" stroke-width="1.5" marker-end="url(#arr19)"/>
+    <text x="248" y="88" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">δ</text>
+  </svg>`,
+
+  // Q20: Zener diode circuit
+  20: `<svg width="280" height="180" viewBox="0 0 280 180">
+    <!-- outer rect circuit -->
+    <line x1="30" y1="30" x2="250" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="30" y1="150" x2="250" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="30" y1="30" x2="30" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- R=100Ω top -->
+    <rect x="90" y="20" width="50" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="97" y="33" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">100Ω</text>
+    <!-- source Vi=10V (left side) -->
+    <text x="2" y="94" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">10V</text>
+    <text x="2" y="108" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">Vi</text>
+    <!-- Zener (middle vertical) -->
+    <line x1="170" y1="30" x2="170" y2="70" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="170" y1="110" x2="170" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- zener symbol -->
+    <polygon points="160,70 180,70 170,90" fill="rgba(79,142,247,0.3)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="160" y1="90" x2="180" y2="90" stroke="#4f8ef7" stroke-width="2"/>
+    <line x1="158" y1="90" x2="162" y2="94" stroke="#f7c94f" stroke-width="1.5"/>
+    <line x1="178" y1="86" x2="182" y2="90" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="186" y="84" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">Vz=8V</text>
+    <text x="186" y="98" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">Izm=10mA</text>
+    <!-- RL (right vertical) -->
+    <line x1="250" y1="30" x2="250" y2="65" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="240" y="65" width="20" height="35" rx="3" fill="#1a2035" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="244" y="86" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">RL</text>
+    <line x1="250" y1="100" x2="250" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- top connection -->
+    <line x1="140" y1="30" x2="250" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+  </svg>`,
+
+  // Q23: Rectangular plate with x-y axes
+  23: `<svg width="200" height="180" viewBox="0 0 200 180">
+    <defs><marker id="arr23x" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker>
+    <marker id="arr23y" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- axes -->
+    <line x1="30" y1="150" x2="180" y2="150" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr23x)"/>
+    <line x1="30" y1="150" x2="30" y2="10" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr23y)"/>
+    <text x="182" y="154" fill="#8892aa" font-size="12" font-family="IBM Plex Sans">x</text>
+    <text x="22" y="10" fill="#8892aa" font-size="12" font-family="IBM Plex Sans">y</text>
+    <!-- Rectangle -->
+    <rect x="30" y="60" width="110" height="90" fill="rgba(79,142,247,0.1)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- dimension labels -->
+    <text x="75" y="168" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">a</text>
+    <text x="148" y="108" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">b</text>
+    <!-- sigma varies label -->
+    <text x="40" y="110" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">σ=σ₀x/ab</text>
+    <text x="10" y="162" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">O</text>
+    <text x="25" y="168" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">fig-x</text>
+  </svg>`,
+
+  // Q24: Vertical hoop with spring at bottom, bead
+  24: `<svg width="200" height="220" viewBox="0 0 200 220">
+    <!-- Hoop -->
+    <circle cx="100" cy="110" r="75" fill="none" stroke="#4f8ef7" stroke-width="2"/>
+    <!-- Top point (release) -->
+    <circle cx="100" cy="35" r="6" fill="#f75d5d"/>
+    <text x="108" y="38" fill="#f75d5d" font-size="11" font-family="IBM Plex Sans">release (top)</text>
+    <!-- Spring at bottom -->
+    <path d="M100,185 Q105,190 100,195 Q95,200 100,205 Q105,210 100,215" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <line x1="100" y1="185" x2="100" y2="185" stroke="#f7c94f" stroke-width="1"/>
+    <text x="108" y="205" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">k (spring)</text>
+    <!-- bead at 90deg position (side) -->
+    <circle cx="175" cy="110" r="7" fill="#3ecf8e" stroke="#e8ecf4" stroke-width="1"/>
+    <text x="183" y="114" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">m</text>
+    <!-- radius label -->
+    <line x1="100" y1="110" x2="175" y2="110" stroke="#8892aa" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="128" y="105" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">R</text>
+    <!-- 2R label -->
+    <line x1="100" y1="110" x2="100" y2="35" stroke="#8892aa" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="104" y="75" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">2R</text>
+    <!-- center -->
+    <circle cx="100" cy="110" r="3" fill="#8892aa"/>
+  </svg>`,
+
+  // Q28: Cylindrical tank with hole
+  28: `<svg width="220" height="220" viewBox="0 0 220 220">
+    <!-- tank rectangle -->
+    <rect x="60" y="20" width="100" height="175" rx="4" fill="rgba(79,142,247,0.08)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- water fill -->
+    <rect x="61" y="21" width="98" height="173" fill="rgba(62,207,142,0.15)" rx="3"/>
+    <!-- hole at 90cm from bottom = 20+175-90*(175/160) -->
+    <circle cx="60" cy="118" r="5" fill="#f75d5d"/>
+    <!-- water jet -->
+    <path d="M60,118 Q30,118 10,130" fill="none" stroke="#3ecf8e" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <!-- 50kg load on top -->
+    <rect x="55" y="10" width="110" height="12" rx="3" fill="#f7c94f" opacity="0.8"/>
+    <text x="90" y="20" fill="#0a0d14" font-size="10" font-weight="600" font-family="IBM Plex Sans">50 kg</text>
+    <!-- height labels -->
+    <line x1="170" y1="195" x2="170" y2="118" stroke="#8892aa" stroke-width="1"/>
+    <text x="174" y="162" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">90cm</text>
+    <line x1="170" y1="118" x2="170" y2="20" stroke="#8892aa" stroke-width="1"/>
+    <text x="174" y="75" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">70cm</text>
+    <!-- total height -->
+    <text x="22" y="110" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">1.6m</text>
+    <!-- ground -->
+    <line x1="40" y1="195" x2="180" y2="195" stroke="#4a5568" stroke-width="2"/>
+  </svg>`,
+
+  // Q34: Infinite wire with circular bend
+  34: `<svg width="280" height="200" viewBox="0 0 280 200">
+    <defs>
+      <marker id="arr34" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker>
+      <marker id="arr34b" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker>
+    </defs>
+    <!-- Left semi-infinite wire coming from left -->
+    <line x1="10" y1="100" x2="100" y2="100" stroke="#f7c94f" stroke-width="2" marker-end="url(#arr34)"/>
+    <text x="15" y="92" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">I</text>
+    <text x="5" y="118" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">∞</text>
+    <!-- Circular arc (semi-circle going up) -->
+    <path d="M100,100 A 40,40 0 0,1 180,100" fill="none" stroke="#f7c94f" stroke-width="2"/>
+    <!-- Right semi-infinite wire going right -->
+    <line x1="180" y1="100" x2="270" y2="100" stroke="#f7c94f" stroke-width="2" marker-end="url(#arr34)"/>
+    <text x="240" y="92" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">I</text>
+    <text x="260" y="118" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">∞</text>
+    <!-- center O -->
+    <circle cx="140" cy="100" r="4" fill="#3ecf8e"/>
+    <text x="134" y="118" fill="#3ecf8e" font-size="13" font-family="IBM Plex Sans">O</text>
+    <!-- radius a -->
+    <line x1="140" y1="100" x2="140" y2="60" stroke="#8892aa" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="144" y="80" fill="#8892aa" font-size="12" font-family="IBM Plex Sans">a</text>
+    <!-- current direction on arc -->
+    <text x="128" y="55" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">↺ I</text>
+  </svg>`,
+
+  // Q35: Two charge configurations
+  35: `<svg width="340" height="180" viewBox="0 0 340 180">
+    <!-- Config 1 -->
+    <rect x="10" y="30" width="100" height="100" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- corners charges -->
+    <circle cx="10" cy="30" r="6" fill="#f7c94f"/><text x="14" y="26" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">+q₀</text>
+    <text x="2" y="20" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">A</text>
+    <circle cx="110" cy="30" r="6" fill="#f7c94f"/><text x="114" y="26" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">+q₀</text>
+    <text x="112" y="20" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">B</text>
+    <circle cx="10" cy="130" r="6" fill="#f7c94f"/><text x="14" y="148" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">+q₀</text>
+    <text x="2" y="148" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">D</text>
+    <circle cx="110" cy="130" r="6" fill="#f7c94f"/><text x="114" y="148" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">+q₀</text>
+    <text x="112" y="148" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">C</text>
+    <!-- center O -->
+    <circle cx="60" cy="80" r="3" fill="#8892aa"/>
+    <text x="64" y="84" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">O</text>
+    <text x="30" y="170" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Configuration(1)</text>
+    <!-- Config 2 -->
+    <rect x="190" y="30" width="100" height="100" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- midpoint charges G E H F -->
+    <circle cx="240" cy="30" r="6" fill="#3ecf8e"/><text x="244" y="26" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">G+q₀</text>
+    <text x="228" y="20" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">G</text>
+    <circle cx="290" cy="80" r="6" fill="#3ecf8e"/><text x="294" y="84" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">E+q₀</text>
+    <circle cx="240" cy="130" r="6" fill="#3ecf8e"/><text x="244" y="148" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">H+q₀</text>
+    <circle cx="190" cy="80" r="6" fill="#3ecf8e"/><text x="155" y="84" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">F+q₀</text>
+    <!-- corner labels -->
+    <text x="182" y="20" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">A</text>
+    <text x="286" y="20" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">B</text>
+    <text x="182" y="148" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">D</text>
+    <text x="286" y="148" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">C</text>
+    <circle cx="240" cy="80" r="3" fill="#8892aa"/>
+    <text x="244" y="84" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">O</text>
+    <text x="208" y="170" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Configuration(2)</text>
+  </svg>`,
+
+  // Q37: Charged sheet and pendulum bob
+  37: `<svg width="220" height="220" viewBox="0 0 220 220">
+    <defs><marker id="arr37" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- Infinite sheet (vertical) -->
+    <line x1="40" y1="10" x2="40" y2="210" stroke="#4f8ef7" stroke-width="2"/>
+    <!-- + charges on sheet -->
+    <text x="22" y="50" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">+</text>
+    <text x="22" y="80" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">+</text>
+    <text x="22" y="110" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">+</text>
+    <text x="22" y="140" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">+σ</text>
+    <text x="22" y="170" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">+</text>
+    <!-- Suspension point A on sheet -->
+    <circle cx="40" cy="40" r="4" fill="#f7c94f"/>
+    <text x="44" y="38" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">A</text>
+    <!-- String at 45 deg -->
+    <line x1="40" y1="40" x2="120" y2="120" stroke="#e8ecf4" stroke-width="1.5"/>
+    <!-- Bob -->
+    <circle cx="120" cy="120" r="10" fill="#f75d5d"/>
+    <text x="132" y="124" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">+10μC</text>
+    <!-- 45° angle arc -->
+    <path d="M40,70 A 30,30 0 0,1 70,40" fill="none" stroke="#8892aa" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="58" y="62" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">45°</text>
+    <!-- l=1m label -->
+    <text x="68" y="72" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">ℓ=1m</text>
+  </svg>`,
+
+  // Q39: Ammeter circuit with shunt
+  39: `<svg width="300" height="160" viewBox="0 0 300 160">
+    <!-- top wire -->
+    <line x1="20" y1="40" x2="280" y2="40" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="130" x2="280" y2="130" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- left (source 20V) -->
+    <line x1="20" y1="40" x2="20" y2="130" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="2" y="90" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">20V</text>
+    <!-- right -->
+    <line x1="280" y1="40" x2="280" y2="130" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- 150.4Ω series resistor -->
+    <rect x="50" y="30" width="70" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="55" y="44" fill="#e8ecf4" font-size="10" font-family="IBM Plex Sans">150.4Ω</text>
+    <!-- Ammeter circle -->
+    <circle cx="190" cy="40" r="16" fill="#1a2035" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="184" y="44" fill="#3ecf8e" font-size="13" font-family="IBM Plex Sans">A</text>
+    <!-- ammeter resistance 240Ω label -->
+    <text x="172" y="26" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">240Ω</text>
+    <!-- Shunt 10Ω in parallel with ammeter -->
+    <line x1="174" y1="40" x2="174" y2="80" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="206" y1="40" x2="206" y2="80" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="180" y="68" width="15" height="24" rx="3" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="182" y="83" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">10Ω</text>
+    <line x1="174" y1="92" x2="206" y2="92" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="174" y1="92" x2="174" y2="130" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="206" y1="92" x2="206" y2="130" stroke="#4f8ef7" stroke-width="1"/>
+  </svg>`,
+
+  // Q46: Atwood pulley with 8kg and 2kg
+  46: `<svg width="200" height="220" viewBox="0 0 200 220">
+    <!-- ceiling -->
+    <line x1="60" y1="20" x2="140" y2="20" stroke="#4a5568" stroke-width="3"/>
+    <!-- pulley -->
+    <circle cx="100" cy="35" r="15" fill="none" stroke="#f7c94f" stroke-width="2"/>
+    <circle cx="100" cy="35" r="4" fill="#f7c94f"/>
+    <!-- string left (8kg) -->
+    <line x1="88" y1="35" x2="88" y2="130" stroke="#e8ecf4" stroke-width="1.5"/>
+    <!-- string right (2kg) -->
+    <line x1="112" y1="35" x2="112" y2="110" stroke="#e8ecf4" stroke-width="1.5"/>
+    <!-- 8kg block (left, hanging) -->
+    <rect x="68" y="130" width="40" height="30" rx="4" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="80" y="149" fill="#e8ecf4" font-size="13" font-family="IBM Plex Sans">8kg</text>
+    <!-- 2kg block (right, on platform) -->
+    <rect x="95" y="110" width="35" height="25" rx="4" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="100" y="126" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">2kg</text>
+    <!-- ground for 2kg -->
+    <line x1="85" y1="195" x2="165" y2="195" stroke="#4a5568" stroke-width="2"/>
+    <!-- 20cm height marker -->
+    <line x1="145" y1="160" x2="145" y2="195" stroke="#8892aa" stroke-width="1"/>
+    <text x="148" y="182" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">20cm</text>
+  </svg>`,
+
+  // Q47: U(x) vs x potential energy graph
+  47: `<svg width="300" height="220" viewBox="0 0 300 220">
+    <defs><marker id="arr47x" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker>
+    <marker id="arr47y" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- axes -->
+    <line x1="30" y1="190" x2="290" y2="190" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr47x)"/>
+    <line x1="30" y1="190" x2="30" y2="10" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr47y)"/>
+    <text x="285" y="200" fill="#8892aa" font-size="12" font-family="IBM Plex Sans">x</text>
+    <text x="14" y="14" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">U(J)</text>
+    <!-- y axis ticks -->
+    <text x="14" y="44" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">10</text>
+    <line x1="28" y1="40" x2="32" y2="40" stroke="#8892aa" stroke-width="1"/>
+    <text x="18" y="84" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">8</text>
+    <line x1="28" y1="80" x2="32" y2="80" stroke="#8892aa" stroke-width="1"/>
+    <text x="18" y="124" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">6</text>
+    <line x1="28" y1="120" x2="32" y2="120" stroke="#8892aa" stroke-width="1"/>
+    <text x="18" y="164" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">4</text>
+    <line x1="28" y1="160" x2="32" y2="160" stroke="#8892aa" stroke-width="1"/>
+    <!-- Emech = 8J dashed line -->
+    <line x1="30" y1="80" x2="285" y2="80" stroke="#f7c94f" stroke-width="1" stroke-dasharray="4,3"/>
+    <text x="200" y="74" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">Emech = 8J</text>
+    <!-- U(x) curve: starts at 8, dips, rises, dips again, flat -->
+    <path d="M30,80 L70,80 Q80,80 85,120 Q90,160 100,160 Q115,160 120,120 Q125,80 135,80 Q145,80 150,100 Q155,120 160,120 Q170,120 175,80 L290,80" fill="none" stroke="#3ecf8e" stroke-width="2"/>
+    <!-- x1 x2 x3 x4 ticks -->
+    <line x1="70" y1="188" x2="70" y2="192" stroke="#8892aa" stroke-width="1"/>
+    <text x="66" y="204" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">x₁</text>
+    <line x1="100" y1="188" x2="100" y2="192" stroke="#8892aa" stroke-width="1"/>
+    <text x="96" y="204" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">x₂</text>
+    <line x1="140" y1="188" x2="140" y2="192" stroke="#8892aa" stroke-width="1"/>
+    <text x="136" y="204" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">x₃</text>
+    <line x1="175" y1="188" x2="175" y2="192" stroke="#8892aa" stroke-width="1"/>
+    <text x="171" y="204" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">x₄</text>
+  </svg>`,
+
+  // Q55: Multi-source circuit
+  55: `<svg width="300" height="200" viewBox="0 0 300 200">
+    <!-- Outer loop -->
+    <line x1="20" y1="30" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="20" y1="170" x2="280" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="20" y1="30" x2="20" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="280" y1="30" x2="280" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- 5Ω top left -->
+    <rect x="50" y="20" width="40" height="20" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="60" y="33" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">5Ω</text>
+    <!-- 10Ω middle vertical -->
+    <line x1="160" y1="30" x2="160" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="148" y="88" width="25" height="24" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="151" y="103" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">10Ω</text>
+    <!-- 10V battery right side top -->
+    <text x="234" y="24" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">10V</text>
+    <!-- 20V source left -->
+    <text x="2" y="100" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">20V</text>
+    <!-- 2Ω bottom left -->
+    <rect x="40" y="158" width="30" height="16" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="46" y="169" fill="#e8ecf4" font-size="10" font-family="IBM Plex Sans">2Ω</text>
+    <!-- 4Ω bottom right -->
+    <rect x="195" y="158" width="30" height="16" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="200" y="169" fill="#e8ecf4" font-size="10" font-family="IBM Plex Sans">4Ω</text>
+    <!-- ∓ battery symbols left side -->
+    <line x1="20" y1="95" x2="20" y2="105" stroke="#f7c94f" stroke-width="3"/>
+    <line x1="20" y1="110" x2="20" y2="115" stroke="#f7c94f" stroke-width="1"/>
+    <!-- ∓ battery right -->
+    <line x1="280" y1="88" x2="280" y2="98" stroke="#f7c94f" stroke-width="3"/>
+    <line x1="280" y1="103" x2="280" y2="108" stroke="#f7c94f" stroke-width="1"/>
+  </svg>`,
+
+  // Q57: LR circuit with source
+  57: `<svg width="300" height="140" viewBox="0 0 300 140">
+    <!-- top wire -->
+    <line x1="20" y1="40" x2="280" y2="40" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="110" x2="280" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- left side P point -->
+    <circle cx="20" cy="40" r="3" fill="#3ecf8e"/>
+    <text x="8" y="36" fill="#3ecf8e" font-size="12" font-family="IBM Plex Sans">P</text>
+    <!-- Inductor L=50mH -->
+    <path d="M40,40 Q47,28 54,40 Q61,28 68,40 Q75,28 82,40 Q89,28 96,40" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="56" y="24" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">L=50mH</text>
+    <!-- current I arrow -->
+    <text x="105" y="36" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">I→</text>
+    <!-- R=2Ω resistor -->
+    <rect x="170" y="30" width="50" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="184" y="44" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">2Ω</text>
+    <!-- Q point right -->
+    <circle cx="280" cy="40" r="3" fill="#3ecf8e"/>
+    <text x="282" y="36" fill="#3ecf8e" font-size="12" font-family="IBM Plex Sans">Q</text>
+    <!-- source 30V -->
+    <line x1="20" y1="40" x2="20" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="280" y1="40" x2="280" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="2" y="78" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">30V</text>
+    <line x1="20" y1="70" x2="20" y2="80" stroke="#f7c94f" stroke-width="3"/>
+    <line x1="20" y1="84" x2="20" y2="90" stroke="#f7c94f" stroke-width="1"/>
+  </svg>`,
+
+  // Q63: Galvanometer circuit for voltmeter/ammeter
+  63: `<svg width="300" height="180" viewBox="0 0 300 180">
+    <!-- Voltmeter config top -->
+    <text x="10" y="20" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Voltmeter (50V range):</text>
+    <!-- G + R in series -->
+    <circle cx="60" cy="60" r="18" fill="#1a2035" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="53" y="64" fill="#3ecf8e" font-size="12" font-family="IBM Plex Sans">G</text>
+    <text x="40" y="46" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">54Ω,1mA</text>
+    <line x1="20" y1="60" x2="42" y2="60" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="78" y1="60" x2="110" y2="60" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="110" y="50" width="35" height="20" rx="3" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="115" y="63" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">R≈?</text>
+    <line x1="145" y1="60" x2="175" y2="60" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- 50V -->
+    <text x="150" y="48" fill="#e8ecf4" font-size="10" font-family="IBM Plex Sans">←── 50V ──→</text>
+    <!-- Ammeter config bottom -->
+    <text x="10" y="115" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Ammeter (10mA range):</text>
+    <circle cx="60" cy="155" r="18" fill="#1a2035" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="53" y="159" fill="#3ecf8e" font-size="12" font-family="IBM Plex Sans">G</text>
+    <line x1="20" y1="155" x2="42" y2="155" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="78" y1="155" x2="110" y2="155" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- shunt r -->
+    <line x1="42" y1="155" x2="42" y2="175" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="78" y1="155" x2="78" y2="175" stroke="#4f8ef7" stroke-width="1"/>
+    <rect x="50" y="168" width="20" height="14" rx="2" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="53" y="178" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">r≈?</text>
+    <line x1="42" y1="175" x2="78" y2="175" stroke="#4f8ef7" stroke-width="1"/>
+  </svg>`,
+
+  // Q66: Young's double slit with plate
+  66: `<svg width="280" height="200" viewBox="0 0 280 200">
+    <defs><marker id="arr66" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker></defs>
+    <!-- Screen (source side) left -->
+    <line x1="60" y1="20" x2="60" y2="180" stroke="#4f8ef7" stroke-width="2"/>
+    <text x="62" y="15" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">S₁</text>
+    <text x="62" y="185" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">S₂</text>
+    <!-- slits -->
+    <circle cx="60" cy="80" r="3" fill="#3ecf8e"/>
+    <circle cx="60" cy="120" r="3" fill="#3ecf8e"/>
+    <!-- Thin plate on S1 -->
+    <rect x="50" y="70" width="10" height="20" rx="1" fill="rgba(247,201,79,0.5)" stroke="#f7c94f" stroke-width="1"/>
+    <text x="20" y="82" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">t=10μm</text>
+    <text x="20" y="94" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">μ=1.2</text>
+    <!-- rays to screen -->
+    <line x1="60" y1="80" x2="220" y2="80" stroke="#3ecf8e" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="60" y1="120" x2="220" y2="120" stroke="#3ecf8e" stroke-width="1" stroke-dasharray="4,2"/>
+    <line x1="60" y1="80" x2="220" y2="100" stroke="#f7c94f" stroke-width="1" opacity="0.5"/>
+    <line x1="60" y1="120" x2="220" y2="100" stroke="#f7c94f" stroke-width="1" opacity="0.5"/>
+    <!-- Observation screen -->
+    <line x1="220" y1="20" x2="220" y2="180" stroke="#4a5568" stroke-width="2"/>
+    <text x="224" y="104" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">P (central max)</text>
+    <!-- P marker -->
+    <circle cx="220" cy="100" r="3" fill="#f7c94f"/>
+    <!-- label -->
+    <text x="55" y="196" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">λ=500nm, air</text>
+  </svg>`,
+
+  // Q69: Logic gate NAND + NOR
+  69: `<svg width="300" height="160" viewBox="0 0 300 160">
+    <defs><marker id="arr69" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#4f8ef7"/></marker></defs>
+    <!-- Inputs A, B -->
+    <text x="10" y="58" fill="#e8ecf4" font-size="13" font-family="IBM Plex Sans">A</text>
+    <line x1="24" y1="55" x2="70" y2="55" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="10" y="110" fill="#e8ecf4" font-size="13" font-family="IBM Plex Sans">B</text>
+    <line x1="24" y1="107" x2="70" y2="107" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- NAND gate (left) -->
+    <path d="M70,40 L70,120 L100,120 Q130,120 130,80 Q130,40 100,40 Z" fill="rgba(79,142,247,0.15)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="80" y="86" fill="#4f8ef7" font-size="12" font-family="IBM Plex Sans">NAND</text>
+    <!-- bubble on NAND output -->
+    <circle cx="134" cy="80" r="5" fill="none" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- wire from NAND to NOR -->
+    <line x1="139" y1="80" x2="165" y2="80" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- also wire from B to NOR -->
+    <line x1="24" y1="107" x2="24" y2="125" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="24" y1="125" x2="165" y2="125" stroke="#4f8ef7" stroke-width="1"/>
+    <!-- NOR gate (right) -->
+    <path d="M165,65 Q175,65 180,80 Q175,95 165,95 Q175,95 185,95 Q200,80 185,65 Z" fill="rgba(62,207,142,0.15)" stroke="#3ecf8e" stroke-width="1.5"/>
+    <path d="M165,65 Q185,65 200,80 Q185,95 165,95 Q175,80 165,65 Z" fill="rgba(62,207,142,0.15)" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="168" y="84" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">NOR</text>
+    <!-- bubble on NOR output -->
+    <circle cx="204" cy="80" r="5" fill="none" stroke="#3ecf8e" stroke-width="1.5"/>
+    <!-- Output wire -->
+    <line x1="209" y1="80" x2="260" y2="80" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr69)"/>
+    <text x="248" y="74" fill="#e8ecf4" font-size="12" font-family="IBM Plex Sans">Y</text>
+    <text x="234" y="92" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Output</text>
+    <text x="8" y="148" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Input: A, B → NAND → NOR → Output Y</text>
+  </svg>`,
+
+  // Q70: Diode circuit with 3 diodes
+  70: `<svg width="300" height="200" viewBox="0 0 300 200">
+    <!-- top wire -->
+    <line x1="20" y1="30" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="170" x2="280" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- battery 5V left -->
+    <line x1="20" y1="30" x2="20" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="2" y="100" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">5V</text>
+    <!-- 3 parallel branches with diodes + 125Ω each -->
+    <!-- Branch 1: D1, 125Ω -->
+    <line x1="80" y1="30" x2="80" y2="65" stroke="#4f8ef7" stroke-width="1.5"/>
+    <polygon points="70,65 90,65 80,82" fill="rgba(79,142,247,0.3)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="70" y1="82" x2="90" y2="82" stroke="#4f8ef7" stroke-width="2"/>
+    <line x1="80" y1="82" x2="80" y2="100" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="92" y="76" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">D₁</text>
+    <!-- 125Ω right of D1 -->
+    <line x1="80" y1="55" x2="200" y2="55" stroke="#4f8ef7" stroke-width="1"/>
+    <rect x="200" y="45" width="40" height="20" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="204" y="58" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">125Ω</text>
+    <line x1="240" y1="55" x2="280" y2="55" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="280" y1="55" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1"/>
+    <!-- Branch 2: D2, 125Ω -->
+    <line x1="80" y1="100" x2="80" y2="130" stroke="#4f8ef7" stroke-width="1.5"/>
+    <polygon points="70,100 90,100 80,117" fill="rgba(79,142,247,0.3)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="70" y1="117" x2="90" y2="117" stroke="#4f8ef7" stroke-width="2"/>
+    <text x="92" y="112" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">D₂</text>
+    <line x1="80" y1="100" x2="200" y2="100" stroke="#4f8ef7" stroke-width="1"/>
+    <rect x="200" y="90" width="40" height="20" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="204" y="103" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">125Ω</text>
+    <line x1="240" y1="100" x2="280" y2="100" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="280" y1="100" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1"/>
+    <!-- Branch 3: D3, 125Ω -->
+    <line x1="80" y1="130" x2="80" y2="170" stroke="#4f8ef7" stroke-width="1.5"/>
+    <polygon points="70,130 90,130 80,147" fill="rgba(79,142,247,0.3)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="70" y1="147" x2="90" y2="147" stroke="#4f8ef7" stroke-width="2"/>
+    <text x="92" y="148" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">D₃</text>
+    <line x1="80" y1="145" x2="200" y2="145" stroke="#4f8ef7" stroke-width="1"/>
+    <rect x="200" y="135" width="40" height="20" rx="2" fill="#1a2035" stroke="#4f8ef7" stroke-width="1"/>
+    <text x="204" y="148" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">125Ω</text>
+    <line x1="240" y1="145" x2="280" y2="145" stroke="#4f8ef7" stroke-width="1"/>
+    <line x1="280" y1="145" x2="280" y2="170" stroke="#4f8ef7" stroke-width="1"/>
+    <!-- 25Ω bottom -->
+    <rect x="115" y="160" width="40" height="18" rx="2" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="120" y="172" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">25Ω</text>
+    <!-- current labels -->
+    <text x="50" y="30" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">I₁</text>
+    <text x="94" y="58" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">I₄</text>
+    <text x="94" y="103" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">I₃</text>
+    <text x="94" y="148" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">I₂</text>
+  </svg>`,
+
+  // Q74: Resistor network (ladder/bridge)
+  74: `<svg width="300" height="180" viewBox="0 0 300 180">
+    <!-- This is a diamond-ladder network -->
+    <!-- A on left, B on right -->
+    <circle cx="20" cy="90" r="5" fill="#4f8ef7"/>
+    <text x="4" y="94" fill="#4f8ef7" font-size="13" font-family="IBM Plex Sans">A</text>
+    <circle cx="280" cy="90" r="5" fill="#4f8ef7"/>
+    <text x="284" y="94" fill="#4f8ef7" font-size="13" font-family="IBM Plex Sans">B</text>
+    <!-- Diamond 1 -->
+    <line x1="20" y1="90" x2="80" y2="30" stroke="#e8ecf4" stroke-width="1.5"/>
+    <line x1="20" y1="90" x2="80" y2="150" stroke="#e8ecf4" stroke-width="1.5"/>
+    <text x="38" y="52" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <text x="38" y="140" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <!-- mid-top and mid-bottom nodes -->
+    <circle cx="80" cy="30" r="3" fill="#8892aa"/>
+    <circle cx="80" cy="150" r="3" fill="#8892aa"/>
+    <line x1="80" y1="30" x2="160" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <line x1="80" y1="150" x2="160" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <text x="100" y="52" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <text x="100" y="145" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <!-- center node -->
+    <circle cx="160" cy="90" r="3" fill="#8892aa"/>
+    <!-- horizontal R center -->
+    <line x1="80" y1="30" x2="80" y2="150" stroke="#e8ecf4" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+    <!-- Diamond 2 -->
+    <line x1="160" y1="90" x2="220" y2="30" stroke="#e8ecf4" stroke-width="1.5"/>
+    <line x1="160" y1="90" x2="220" y2="150" stroke="#e8ecf4" stroke-width="1.5"/>
+    <text x="178" y="52" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <text x="178" y="145" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <circle cx="220" cy="30" r="3" fill="#8892aa"/>
+    <circle cx="220" cy="150" r="3" fill="#8892aa"/>
+    <line x1="220" y1="30" x2="280" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <line x1="220" y1="150" x2="280" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <text x="238" y="52" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <text x="238" y="145" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <!-- center-right R -->
+    <line x1="80" y1="90" x2="160" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <line x1="160" y1="90" x2="220" y2="90" stroke="#e8ecf4" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+    <text x="108" y="84" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+    <!-- left R from A -->
+    <circle cx="80" cy="90" r="3" fill="#8892aa"/>
+    <line x1="20" y1="90" x2="80" y2="90" stroke="#e8ecf4" stroke-width="1.5"/>
+    <text x="40" y="84" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">R</text>
+  </svg>`,
+
+  // Q12: Steel-Copper junction (furnace-ice box)
+  12: `<svg width="300" height="130" viewBox="0 0 300 130">
+    <!-- Furnace -->
+    <rect x="10" y="30" width="60" height="70" rx="4" fill="rgba(247,93,93,0.2)" stroke="#f75d5d" stroke-width="1.5"/>
+    <text x="20" y="62" fill="#f75d5d" font-size="11" font-family="IBM Plex Sans">Furnace</text>
+    <text x="18" y="78" fill="#f75d5d" font-size="11" font-family="IBM Plex Sans">450°C</text>
+    <!-- Steel rod -->
+    <rect x="70" y="45" width="80" height="40" rx="2" fill="rgba(79,142,247,0.2)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="90" y="70" fill="#4f8ef7" font-size="12" font-family="IBM Plex Sans">Steel</text>
+    <!-- Junction T -->
+    <line x1="150" y1="30" x2="150" y2="100" stroke="#f7c94f" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="154" y="24" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">T</text>
+    <!-- Copper rod -->
+    <rect x="150" y="45" width="80" height="40" rx="2" fill="rgba(247,201,79,0.15)" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="172" y="70" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">Copper</text>
+    <!-- Ice box -->
+    <rect x="230" y="30" width="60" height="70" rx="4" fill="rgba(79,142,247,0.15)" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="234" y="62" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">Ice box</text>
+    <text x="242" y="78" fill="#4f8ef7" font-size="11" font-family="IBM Plex Sans">0°C</text>
+    <!-- Insulating label -->
+    <text x="95" y="118" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">Insulating material</text>
+    <line x1="70" y1="110" x2="230" y2="110" stroke="#8892aa" stroke-width="1" stroke-dasharray="3,2"/>
+  </svg>`,
+
+  // Q15: LR coil circuit
+  15: `<svg width="280" height="140" viewBox="0 0 280 140">
+    <!-- battery 6V -->
+    <line x1="20" y1="30" x2="20" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="20" y1="65" x2="20" y2="75" stroke="#f7c94f" stroke-width="3"/>
+    <line x1="20" y1="78" x2="20" y2="84" stroke="#f7c94f" stroke-width="1"/>
+    <text x="2" y="62" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">6V</text>
+    <!-- top wire -->
+    <line x1="20" y1="30" x2="260" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="110" x2="260" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- Inductor L=1H -->
+    <path d="M50,30 Q57,18 64,30 Q71,18 78,30 Q85,18 92,30 Q99,18 106,30" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="68" y="15" fill="#f7c94f" font-size="10" font-family="IBM Plex Sans">L=1H</text>
+    <!-- Resistor R=100Ω -->
+    <rect x="150" y="20" width="70" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="162" y="34" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">100Ω</text>
+    <!-- right side -->
+    <line x1="260" y1="30" x2="260" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+  </svg>`,
+
+  // Q14: LCR circuit
+  14: `<svg width="300" height="140" viewBox="0 0 300 140">
+    <!-- Source -->
+    <line x1="20" y1="30" x2="20" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="2" y="74" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">20√2</text>
+    <text x="2" y="86" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">sin100t</text>
+    <!-- top wire -->
+    <line x1="20" y1="30" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- bottom wire -->
+    <line x1="20" y1="110" x2="280" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- Inductor 100mH -->
+    <path d="M40,30 Q47,18 54,30 Q61,18 68,30 Q75,18 82,30" fill="none" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="43" y="14" fill="#f7c94f" font-size="9" font-family="IBM Plex Sans">100mH</text>
+    <!-- Capacitor 100μF -->
+    <line x1="110" y1="22" x2="110" y2="38" stroke="#3ecf8e" stroke-width="2.5"/>
+    <line x1="118" y1="22" x2="118" y2="38" stroke="#3ecf8e" stroke-width="2.5"/>
+    <line x1="88" y1="30" x2="110" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="118" y1="30" x2="140" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="103" y="14" fill="#3ecf8e" font-size="9" font-family="IBM Plex Sans">100μF</text>
+    <!-- Resistor 120Ω -->
+    <rect x="150" y="20" width="60" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="158" y="33" fill="#e8ecf4" font-size="10" font-family="IBM Plex Sans">120Ω</text>
+    <!-- right side -->
+    <line x1="280" y1="30" x2="280" y2="110" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="210" y1="30" x2="280" y2="30" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="220" y="24" fill="#8892aa" font-size="9" font-family="IBM Plex Sans">V=20√2 sin(100t)</text>
+  </svg>`,
+
+  // Q36: Long wire cross section B-field
+  36: `<svg width="220" height="200" viewBox="0 0 220 200">
+    <!-- Wire cross-section circle -->
+    <circle cx="110" cy="100" r="70" fill="rgba(79,142,247,0.08)" stroke="#4f8ef7" stroke-width="2"/>
+    <!-- Uniform current dots (out of page) -->
+    <text x="88" y="72" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">• • • •</text>
+    <text x="72" y="92" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">• • • • • •</text>
+    <text x="68" y="108" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">• • • • • • •</text>
+    <text x="72" y="124" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">• • • • • •</text>
+    <text x="88" y="140" fill="#4f8ef7" font-size="10" font-family="IBM Plex Sans">• • • •</text>
+    <!-- center -->
+    <circle cx="110" cy="100" r="3" fill="#f7c94f"/>
+    <!-- radius a -->
+    <line x1="110" y1="100" x2="180" y2="100" stroke="#f7c94f" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="138" y="94" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">a</text>
+    <text x="184" y="104" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">radius</text>
+    <!-- Inside point -->
+    <circle cx="145" cy="100" r="5" fill="#3ecf8e" opacity="0.8"/>
+    <text x="148" y="118" fill="#3ecf8e" font-size="10" font-family="IBM Plex Sans">inside</text>
+    <!-- Outside point -->
+    <circle cx="196" cy="100" r="5" fill="#f75d5d" opacity="0.8"/>
+    <text x="186" y="118" fill="#f75d5d" font-size="10" font-family="IBM Plex Sans">outside</text>
+    <!-- I label -->
+    <text x="95" y="104" fill="#e8ecf4" font-size="12" font-family="IBM Plex Sans">I</text>
+  </svg>`,
+
+  // Q56: Meter bridge
+  56: `<svg width="300" height="160" viewBox="0 0 300 160">
+    <!-- Bridge wire -->
+    <line x1="40" y1="100" x2="260" y2="100" stroke="#f7c94f" stroke-width="3"/>
+    <text x="30" y="118" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">0</text>
+    <text x="248" y="118" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">100</text>
+    <!-- l = 25cm mark -->
+    <line x1="95" y1="95" x2="95" y2="105" stroke="#3ecf8e" stroke-width="2"/>
+    <text x="82" y="118" fill="#3ecf8e" font-size="10" font-family="IBM Plex Sans">l=25</text>
+    <!-- R on left -->
+    <line x1="40" y1="100" x2="40" y2="40" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="20" y="20" width="40" height="20" rx="3" fill="#1a2035" stroke="#4f8ef7" stroke-width="1.5"/>
+    <text x="30" y="33" fill="#e8ecf4" font-size="11" font-family="IBM Plex Sans">R</text>
+    <line x1="40" y1="20" x2="150" y2="20" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- S on right -->
+    <line x1="260" y1="100" x2="260" y2="40" stroke="#4f8ef7" stroke-width="1.5"/>
+    <rect x="240" y="20" width="40" height="20" rx="3" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="250" y="33" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">S</text>
+    <line x1="260" y1="20" x2="150" y2="20" stroke="#4f8ef7" stroke-width="1.5"/>
+    <!-- Galvanometer -->
+    <circle cx="150" cy="60" r="14" fill="#1a2035" stroke="#3ecf8e" stroke-width="1.5"/>
+    <text x="143" y="64" fill="#3ecf8e" font-size="12" font-family="IBM Plex Sans">G</text>
+    <line x1="150" y1="74" x2="150" y2="100" stroke="#3ecf8e" stroke-width="1.5"/>
+    <!-- Battery V below -->
+    <rect x="120" y="130" width="60" height="20" rx="3" fill="#1a2035" stroke="#f7c94f" stroke-width="1.5"/>
+    <text x="135" y="144" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">V</text>
+    <line x1="40" y1="150" x2="120" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="40" y1="100" x2="40" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="180" y1="150" x2="260" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+    <line x1="260" y1="100" x2="260" y2="150" stroke="#4f8ef7" stroke-width="1.5"/>
+  </svg>`,
+
+  // Q42: Solenoid with electron
+  42: `<svg width="280" height="130" viewBox="0 0 280 130">
+    <!-- Solenoid coils -->
+    <path d="M30,65 Q40,40 50,65 Q60,40 70,65 Q80,40 90,65 Q100,40 110,65 Q120,40 130,65 Q140,40 150,65 Q160,40 170,65 Q180,40 190,65 Q200,40 210,65 Q220,40 230,65 Q240,40 250,65" fill="none" stroke="#4f8ef7" stroke-width="2"/>
+    <!-- inside field B -->
+    <text x="110" y="85" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">B field inside</text>
+    <!-- electron circular motion -->
+    <ellipse cx="140" cy="95" rx="25" ry="12" fill="none" stroke="#3ecf8e" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <circle cx="165" cy="95" r="5" fill="#f75d5d"/>
+    <text x="170" y="99" fill="#f75d5d" font-size="11" font-family="IBM Plex Sans">e⁻</text>
+    <!-- current I arrows -->
+    <text x="12" y="53" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">I=1.5A</text>
+    <!-- T=75ns label -->
+    <text x="100" y="120" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">T = 75 ns (period of e⁻)</text>
+  </svg>`,
+
+  // Q33: Rotating coil in magnetic field
+  33: `<svg width="260" height="160" viewBox="0 0 260 160">
+    <defs><marker id="arr33" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#f7c94f"/></marker></defs>
+    <!-- B field horizontal arrows -->
+    <line x1="10" y1="80" x2="50" y2="80" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr33)"/>
+    <line x1="10" y1="50" x2="50" y2="50" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr33)"/>
+    <line x1="10" y1="110" x2="50" y2="110" stroke="#4f8ef7" stroke-width="1.5" marker-end="url(#arr33)"/>
+    <text x="14" y="40" fill="#4f8ef7" font-size="12" font-family="IBM Plex Sans">B→</text>
+    <!-- Coil (shown as rectangle parallel to B) -->
+    <rect x="100" y="30" width="60" height="100" rx="3" fill="rgba(79,142,247,0.15)" stroke="#f7c94f" stroke-width="2"/>
+    <text x="112" y="84" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">Coil</text>
+    <text x="108" y="100" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">N turns, A</text>
+    <!-- rotation axis vertical -->
+    <line x1="130" y1="10" x2="130" y2="150" stroke="#3ecf8e" stroke-width="1" stroke-dasharray="3,2"/>
+    <!-- omega arrow -->
+    <path d="M155,30 Q170,15 185,30" fill="none" stroke="#f7c94f" stroke-width="1.5" marker-end="url(#arr33)"/>
+    <text x="185" y="24" fill="#f7c94f" font-size="12" font-family="IBM Plex Sans">ω</text>
+    <text x="58" y="155" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">B ∥ plane of coil at this instant</text>
+  </svg>`,
+
+  // Q54: Rod pivot collision
+  54: `<svg width="260" height="160" viewBox="0 0 260 160">
+    <defs><marker id="arr54" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0L6,3L0,6Z" fill="#3ecf8e"/></marker></defs>
+    <!-- Pivot at center -->
+    <circle cx="130" cy="80" r="6" fill="#f7c94f"/>
+    <text x="136" y="78" fill="#f7c94f" font-size="11" font-family="IBM Plex Sans">pivot</text>
+    <!-- Rod horizontal -->
+    <line x1="20" y1="80" x2="240" y2="80" stroke="#e8ecf4" stroke-width="3" stroke-linecap="round"/>
+    <text x="70" y="68" fill="#8892aa" font-size="11" font-family="IBM Plex Sans">M=4m, l</text>
+    <!-- Mass m approaching at 45deg to right end -->
+    <circle cx="240" cy="80" r="8" fill="#f75d5d"/>
+    <text x="248" y="84" fill="#f75d5d" font-size="11" font-family="IBM Plex Sans">m</text>
+    <!-- velocity arrow of m -->
+    <line x1="210" y1="50" x2="238" y2="78" stroke="#3ecf8e" stroke-width="1.5" marker-end="url(#arr54)"/>
+    <text x="195" y="44" fill="#3ecf8e" font-size="11" font-family="IBM Plex Sans">v, 45°</text>
+    <!-- half lengths -->
+    <line x1="130" y1="90" x2="240" y2="90" stroke="#8892aa" stroke-width="0.5"/>
+    <text x="178" y="104" fill="#8892aa" font-size="10" font-family="IBM Plex Sans">l/2</text>
+  </svg>`,
+};
+
+const questions=[
+  {id:1,type:'mcq',text:'Time periods of oscillation of the same simple pendulum measured using four different measuring clocks were recorded as 4.62 s, 4.632 s, 4.6 s and 4.64 s. The arithmetic mean of these readings in correct significant figures is:',opts:['4.623 s','4.62 s','4.6 s','5 s']},
+  {id:2,type:'mcq',text:'The diameter of a sphere is measured using a vernier caliper whose 9 divisions of main scale are equal to 10 divisions of vernier scale. The shortest division on the main scale is 1 mm. The main scale reading is 2 cm and second division of vernier scale coincides with main scale. If mass of sphere is 8.635 g, the density of the sphere is:',opts:['2.5 g/cm³','1.7 g/cm³','2.2 g/cm³','2.0 g/cm³']},
+  {id:3,type:'mcq',fig:3,text:'In the given arrangement of a doubly inclined plane two blocks of masses M and m are placed. Connected by a light string over an ideal pulley. Coefficient of friction = 0.25. The value of m for which M = 10 kg moves down with acceleration 2 m/s² is: (g = 10 m/s², tan 37° = 3/4)',opts:['9 kg','4.5 kg','6.5 kg','4.25 kg']},
+  {id:4,type:'mcq',fig:4,text:'A circular table rotates with angular velocity ω rad/s. A steel ball is placed at 1m on a radial groove. Table radius is 3 m. The radial velocity of the ball w.r.t. table when it leaves is x√2ω m/s. The value of x is:',opts:['1','2','3','4']},
+  {id:5,type:'mcq',text:'A simple pendulum of length 1 m has a wooden bob of mass 1 kg. A bullet of mass 10⁻² kg moving at 2×10² ms⁻¹ embeds into the bob. Height to which the bob rises before swinging back is: (g = 10 m/s²)',opts:['0.30 m','0.20 m','0.35 m','0.40 m']},
+  {id:6,type:'integer',text:'In a system, m₁ = 3 kg and m₂ = 2 kg are placed at some distance. m₁ is moved 2 cm towards the center of mass. To keep center of mass fixed, m₂ should move towards center of mass by _____ cm.'},
+  {id:7,type:'mcq',text:'A metal wire of uniform density, length L, mass M is bent into a semicircular arc. A particle of mass m is at the center. The gravitational force on the particle by the wire is:',opts:['GMmπ / 2L²','0','GmMπ² / L²','2GmMπ / L²']},
+  {id:8,type:'mcq',text:'To find spring constant k, a student commits 2% positive error in time and 1% negative error in mass. The percentage error in k is:',opts:['3%','1%','4%','5%']},
+  {id:9,type:'integer',text:'Density and breaking stress of a wire are 6×10⁴ kg/m³ and 1.2×10⁸ N/m² respectively. It is suspended on a planet where g = (1/3)×10 m/s². Maximum length before breaking is _____ m.'},
+  {id:10,type:'integer',text:'A tuning fork resonates with a sonometer wire (length 1 m, tension 6 N). When tension is changed to 54 N, the fork produces 12 beats/s with it. Frequency of the tuning fork is _____ Hz.'},
+  {id:11,type:'integer',text:'A parallel plate capacitor (width 4 cm, length 8 cm, separation 4 mm) connected to 20 V. A dielectric slab (κ=5, length 1 cm, width 4 cm, thickness 4 mm) is inserted. Electrostatic energy = _____ ε₀ J.'},
+  {id:12,type:'mcq',fig:12,text:'K₂/K₁ = 9, A₁/A₂ = 2, L₁/L₂ = 2 for steel and copper rods (Furnace 450°C — Steel — Copper — Ice box 0°C). Temperature T at the steel-copper junction in steady state is:',opts:['18°C','14°C','45°C','150°C']},
+  {id:13,type:'integer',text:'In a coil (R = 8Ω), magnetic flux varies as φ = (2/3)(9 − t²). Total heat produced till flux becomes zero is _____ J.'},
+  {id:14,type:'mcq',fig:14,text:'An AC source (V = 20√2 sin 100t) is connected to L = 100 mH, C = 100 μF, R = 120 Ω. Resistance has thermal capacity 2 J/°C. Time to heat it by 16°C is _____ s.',opts:['t = 10 ms; U = 2 mJ','t = 10 ms; U = 1 mJ','15 s','t = 7 ms; U = 2 mJ']},
+  {id:15,type:'mcq',fig:15,text:'A coil (L = 1H, R = 100Ω) is connected to 6V battery. Find: (a) time elapsed before current reaches half its steady-state value, (b) energy stored in magnetic field 15 ms after switching on. (ln2 = 0.693, e⁻³/² = 0.25)',opts:['t = 10 ms; U = 2 mJ','t = 10 ms; U = 1 mJ','t = 7 ms; U = 1 mJ','t = 7 ms; U = 2 mJ']},
+  {id:16,type:'integer',fig:16,text:'The effective current I in the given complex circuit (8Ω, 20mH, 6μF, 4Ω, 50mH, 8Ω in series with parallel branches, source 220V) at very high frequencies will be _____ A.'},
+  {id:17,type:'integer',fig:17,text:'Face AC of an equilateral prism is immersed in liquid of refractive index n. For incident angle 60° at side AC, refracted beam just grazes along AC. n = √x/4. Value of x is _____. (μ_glass = 1.5)'},
+  {id:18,type:'mcq',fig:18,text:'The I-V characteristics of a p-n junction diode in forward bias is shown. The ratio of dynamic resistance at forward bias voltages of 2V and 4V respectively is:',opts:['1:2','5:1','1:40','20:1']},
+  {id:19,type:'integer',fig:19,text:'A thin prism (angle 6°, nY = 1.5) is combined with another prism (angle 5°, nY = 1.55) producing no dispersion. The net average deviation δ = (1/x)°. Value of x is _____.'},
+  {id:20,type:'integer',fig:20,text:'A Zener (Vz = 8V, Izm = 10 mA) is subjected to Vi = 10V with R = 100Ω series. RL is variable load. Ratio of maximum to minimum value of RL is _____.'},
+  {id:21,type:'mcq',text:'Sunlight falls normally on area 36 cm² and exerts average force 7.2×10⁻⁹ N in 20 minutes. Considering complete absorption, the energy flux of incident light is:',opts:['25.92×10² W/cm²','8.64×10⁻⁶ W/cm²','6.0 W/cm²','0.06 W/cm²']},
+  {id:22,type:'mcq',text:'A rectangular sheet (ℓ = 9 cm, d = 4 cm, m = 0.1 kg, α = 3.1×10⁻⁵ K⁻¹, Cv = 900 J/kg·K). Heat supplied = 8.1×10² J. Change in area of sheet is:',opts:['2.0×10⁻⁶ m²','3.0×10⁻⁷ m²','6.0×10⁻⁷ m²','4.0×10⁻⁷ m²']},
+  {id:23,type:'mcq',fig:23,text:'Centre of mass of a thin rectangular plate (sides a, b) with mass per unit area σ = σ₀x/ab (σ₀ constant) is:',opts:['(2a/3, b/2)','(2a/3, 2b/3)','(a/2, b/2)','(a/3, b/2)']},
+  {id:24,type:'mcq',fig:24,text:'A bead (mass m) slides without friction on a vertical circular hoop (radius R). A spring (constant k, equilibrium length R) is attached to the bottom. Released from top with zero initial speed. Velocity when spring length becomes R is:',opts:['2√(gR + kR²/m)','√(2Rg + 4kR²/m)','√(2Rg + kR²/m)','√(3Rg + kR²/m)']},
+  {id:25,type:'integer',text:'Steel wire: length 2 m, Y = 2×10¹¹ Nm⁻². Poisson ratio = 0.2, transverse strain = 10⁻³. Elastic potential energy density of wire = _____ × 10⁵ SI units.'},
+  {id:26,type:'mcq',text:'For the viscosity experiment with a ball (radius R), consider statements: A. V vs R graph is a parabola. B. Terminal velocities of different diameter balls are constant for given liquid. C. Measurement of terminal velocity is dependent on temperature. D. Experiment assesses density of liquid. E. If balls are dropped with initial speed, η will change. Correct option:',opts:['B, D and E only','A, C and D only','C, D and E only','A, B and E only']},
+  {id:27,type:'integer',text:'Two slabs (equal sides l, thicknesses d₁ and d₂ = 2d₁, l > d₂). Equal shearing force applied. θ₂ = 2θ₁. Shear modulus of material 1 = 4×10⁹ N/m². Shear modulus of material 2 = x×10⁹ N/m². Value of x = _____.'},
+  {id:28,type:'mcq',fig:28,text:'Full cylindrical tank (height 1.6 m, area 0.5 m²) has a hole at 90 cm from bottom. A 50 kg load is applied on top surface. Velocity of water coming out when hole is opened is: (g = 10 m/s²)',opts:['3 m/s','5 m/s','2 m/s','4 m/s']},
+  {id:29,type:'mcq',text:'Two simple pendulums (lengths l₁ and l₂) have angular displacements θ₁ and θ₂. If angular accelerations of both are equal, then:',opts:['θ₁l₁² = θ₂l₂²','θ₁l₁ = θ₂l₂','θ₁l₁² = θ₂l₂² (same)','θ₁l₂ = θ₂l₁']},
+  {id:30,type:'mcq',text:'An ideal gas at (P₀, V₀) is isothermally expanded to 4V₀, then isobarically compressed to V₀, then heated isochorically back to initial state. Heat exchanged in this process is:',opts:['P₀V₀(2ln2 − 0.75)','P₀V₀(ln2 − 0.75)','P₀V₀(ln2 − 0.25)','P₀V₀(2ln2 − 0.25)']},
+  {id:31,type:'mcq',text:'A sinusoidal wave (wavelength 7.5 cm) travels 1.2 cm in x-direction in 0.3 s. Crest P is at x=0, t=0. Maximum displacement is 2 cm. Which equation correctly represents this wave?',opts:['y = 2cos(0.83x − 3.35t) cm','y = 2sin(0.83x − 3.5t) cm','y = 2cos(3.35x − 0.83t) cm','y = 2cos(0.13x − 0.5t) cm']},
+  {id:32,type:'mcq',text:'An electron enters symmetrically between two parallel oppositely charged plates (10 cm long). It emerges with horizontal velocity 10⁶ m/s. Electric field between plates = 9.1 V/cm. Vertical component of velocity of electron is: (mₑ = 9.1×10⁻³¹ kg, qₑ = 1.6×10⁻¹⁹ C)',opts:['1×10⁶ m/s','0','16×10⁶ m/s','16×10⁴ m/s']},
+  {id:33,type:'mcq',fig:33,text:'A coil (area A, N turns) rotates with ω in uniform B field about axis ⊥ B. At an instant when B is parallel to the plane of coil, magnetic flux φ and induced emf ε are:',opts:['φ = AB, ε = 0','φ = 0, ε = NABω','φ = 0, ε = 0','φ = AB, ε = NABω']},
+  {id:34,type:'mcq',fig:34,text:'An infinite wire has a circular bend of radius a carrying current I. The magnetic field magnitude at origin O of the arc is:',opts:['(μ₀I/4πa)[π/2 + 1]','(μ₀I/4πa)[3π/2 + 1]','(μ₀I/2πa)[π/2 + 2]','(μ₀I/4πa)[3π/2 + 2]']},
+  {id:35,type:'mcq',fig:35,text:'Four identical charges q₀ at corners A,B,C,D of square (side a). In Config 2, charges moved to midpoints G,E,H,F. If K = 1/4πε₀, difference in potential energies of config (2) and (1) is:',opts:['(Kq₀²/a)(4√2−2)','(Kq₀²/a)(3−√2)','(Kq₀²/a)(4−2√2)','(Kq₀²/a)(3√2−2)']},
+  {id:36,type:'mcq',fig:36,text:'A long straight wire (radius a) carries steady current I, uniformly distributed. Distances from center at which B field [inside, outside] equals half the maximum possible B field anywhere are:',opts:['[a/4, 3a/2]','[a/2, 2a]','[a/2, 3a]','[a/4, 2a]']},
+  {id:37,type:'mcq',fig:37,text:'A bob (mass 100 mg, charge +10 μC) on insulating string (1 m) near an infinite non-conducting sheet of charge density σ. String makes 45° with the sheet at equilibrium. Charge density σ is: (ε₀ = 8.85×10⁻¹² F/m, g = 10 m/s²)',opts:['0.885 nC/m²','17.7 nC/m²','885 nC/m²','1.77 nC/m²']},
+  {id:38,type:'mcq',text:'A dipole (charges 2 μC, separation 0.5 μm) is between capacitor plates with axis parallel to E field. Potential difference = 5V, plate separation = 0.5 mm. If dipole is rotated 30° from axis, torque is:',opts:['5×10⁻⁹ Nm','5×10⁻³ Nm','2.5×10⁻¹² Nm','2.5×10⁻⁹ Nm']},
+  {id:39,type:'integer',fig:39,text:'A resistance of 150.4Ω is connected in series with an ammeter (240Ω). A shunt resistance of 10Ω is connected in parallel with the ammeter. Source is 20V. Reading of the ammeter is _____ mA.'},
+  {id:40,type:'mcq',text:'An infinitely long wire has linear charge density λ = 2 nC/m. Net flux through a Gaussian cube of side √3 cm, if the wire passes through any two corners maximally displaced from each other, is xNm²C⁻¹. Value of x is:',opts:['0.72π','1.44π','6.48π','2.16π']},
+  {id:41,type:'integer',text:'Two cells (emf 1V, 2V; internal resistance 2Ω, 1Ω) in series with 6Ω external: total current I₁. Same cells in parallel with same 6Ω: total current I₂. Value of (I₁/I₂) = x/3. Value of x is _____.'},
+  {id:42,type:'integer',fig:42,text:'A solenoid (current 1.5 A) has an electron executing circular motion inside with time period T = 75 ns. Number of turns per metre in the solenoid is _____. (mₑ = 9×10⁻³¹ kg, |qₑ| = 1.6×10⁻¹⁹ C, μ₀ = 4π×10⁻⁷)'},
+  {id:43,type:'mcq',text:'Moving coil galvanometer coils: R₁=5Ω, N₁=15, A₁=3.6×10⁻³m², B₁=0.25T; R₂=7Ω, N₂=21, A₂=1.8×10⁻³m², B₂=0.50T. Torsional constants equal. Ratio of voltage sensitivity of M₁ to M₂ is:',opts:['1:1','1:4','1:3','1:2']},
+  {id:44,type:'mcq',text:'Entropy S = α²β ln[μkR/Jβ² + 3]. Here α, β are constants; μ, J, k, R are moles, mechanical equivalent of heat, Boltzmann constant, gas constant. [S = dQ/T]. Choose the INCORRECT option:',opts:['α and J have the same dimensions','S, β, k and μR have the same dimensions','S and α have different dimensions','α and k have the same dimensions']},
+  {id:45,type:'mcq',text:'Water droplets fall from a tap. Spacing between a droplet observed at 4th second and the next droplet is 34.3 m. Rate of droplets from tap is: (g = 9.8 m/s²)',opts:['3 drops/2 seconds','2 drops/second','1 drop/second','1 drop/7 seconds']},
+  {id:46,type:'mcq',fig:46,text:'Masses 2 kg and 8 kg are connected by a massless string over smooth pulleys. 8 kg box starts 20 cm from ground. Time taken by 8 kg to strike the ground from rest: (g = 10 m/s²)',opts:['0.34 s','0.2 s','0.25 s','0.4 s']},
+  {id:47,type:'mcq',fig:47,text:'For a potential energy graph U(x) with Emech = 8 J, the INCORRECT statement is:',opts:['at x > x₄, K.E. is constant throughout the region','at x < x₁, K.E. is smallest and particle moves slowest','at x = x₂, K.E. is greatest and particle moves fastest','at x = x₃, K.E. = 4 J']},
+  {id:48,type:'integer',text:'A particle (mass 1 mg, charge q) is at midpoint of two stationary particles 2 m apart, each carrying charge q. Displaced slightly and executes SHM. Angular frequency = _____ × 10⁵ rad/s if q² = 10 C².'},
+  {id:49,type:'mcq',text:'A 1 m water pipe (area 1 cm²) filled with ice at −10°C. Current 0.5 A through 4 kΩ resistance. Minimum time to melt ice? (Latent heat = 3.33×10⁵ J/kg, specific heat of ice = 2×10³ J/kg, density = 10³ kg/m³)',opts:['0.353 s','35.3 s','3.53 s','70.6 s']},
+  {id:50,type:'integer',text:'Image of an object in air formed by convex refracting surface is 10 m behind surface. Image is real and at 2/3 of object distance. Wavelength inside surface = (2/3) × wavelength in air. Radius of surface = x/13 m. Value of x is _____.'},
+  {id:51,type:'integer',text:'EM wave: E = (50 NC⁻¹)sinω(t − x/c). Energy in a cylinder of volume V is 5.5×10⁻¹² J. Value of V is _____ cm³. (ε₀ = 8.8×10⁻¹² C²N⁻¹m⁻²)'},
+  {id:52,type:'mcq',text:'A glass tumbler (inner depth 17.5 cm) is filled with water (μ = 4/3). When the observer (looking from above) feels it is half filled, actual height of water is:',opts:['11.7 cm','10 cm','7.5 cm','8.75 cm']},
+  {id:53,type:'mcq',text:'Electric field of a plane EM wave: E = 20cos(2×10¹⁰ t − 200x) V/m through a non-magnetic medium. Dielectric constant of the medium is: (μᵣ = 1)',opts:['9','2','1/3','3']},
+  {id:54,type:'mcq',fig:54,text:'A uniform rod (M = 4m, length l) is pivoted at its centre. A mass m moving with velocity v at angle θ = π/4 to rod\'s long axis collides with one end and sticks. Angular speed of the system just after collision is:',opts:['4v/7l','3√2v/7l','3v/(7√2·l)','3v/7l']},
+  {id:55,type:'mcq',fig:55,text:'In the circuit shown (20V battery with 2Ω, 5Ω; 10V battery with 4Ω; middle branch 10Ω), the current in the 10V battery is close to:',opts:['0.36 A from −ve to +ve','0.71 A from +ve to −ve','0.21 A from +ve to −ve','0.42 A from +ve to −ve']},
+  {id:56,type:'integer',fig:56,text:'In a meter bridge experiment, balancing length l = 25 cm for resistance wire R. If R is replaced by a wire of half length and half diameter (same material), new balancing distance l\' (in cm) = _____.'},
+  {id:57,type:'integer',fig:57,text:'In the circuit (L = 50 mH, R = 2Ω, 30V source): At some instant I = 1A decreasing at rate 10² A/s. The potential difference VP − VQ (in volts) at that instant is _____.'},
+  {id:58,type:'mcq',text:'An air bubble (volume 1 cm³) rises from bottom of a lake 40 m deep to surface at 12°C. Atmospheric pressure = 1×10⁵ Pa, ρwater = 1000 kg/m³, g = 10 m/s². Volume of bubble at surface is:',opts:['5 cm³','2 cm³','4 cm³','3 cm³']},
+  {id:59,type:'mcq',text:'1 kg of water at 100°C is converted to steam at 100°C. Volume changes from 1×10⁻³ m³ to 1.671 m³. Change in internal energy is: (Latent heat = 2257 kJ/kg, Atmospheric pressure = 1×10⁵ Pa)',opts:['+2090 kJ','−2090 kJ','−2426 kJ','+2476 kJ']},
+  {id:60,type:'integer',text:'Cubical volume bounded by x=0, x=a, y=0, y=a, z=0, z=a. Electric field E = E₀x î, E₀ = 4×10⁴ NC⁻¹m⁻¹. If a = 2 cm, charge contained = Q×10⁻¹⁴ C. Value of Q = _____. (ε₀ = 9×10⁻¹² C²/Nm²)'},
+  {id:61,type:'mcq',text:'Mean free path of molecules of a gas at STP is 1500d (d = diameter). While maintaining standard pressure, mean free path at 373 K is approximately:',opts:['1098d','2049d','750d','1500d']},
+  {id:62,type:'integer',text:'Two long parallel wires carrying currents 8A and 15A in opposite directions, placed 7 cm apart. Point P is equidistant from both wires, with lines joining P to wires perpendicular to each other. Magnetic field at P = _____ × 10⁻⁶ T. (√2 = 1.4)'},
+  {id:63,type:'mcq',fig:63,text:'For designing a voltmeter (50V range) and ammeter (10mA range) using a galvanometer (54Ω, full scale deflection 1mA), choose the correct option:',opts:['(C) and (E)','(C) and (D)','(A) and (C)','(A) and (B)']},
+  {id:64,type:'mcq',text:'Current sensitivity of a MCG is increased by 25% by changing only number of turns and area of cross-section of wire (resistance kept constant). Percentage change in voltage sensitivity is:',opts:['+25%','−50%','Zero','−25%']},
+  {id:65,type:'integer',text:'An ideal transformer operates at 12 kV primary and 120 V secondary. Average rate of energy consumption by houses = 60 kW. Value of resistive load Rs in secondary circuit = _____ mΩ.'},
+  {id:66,type:'mcq',fig:66,text:'In YDSE, a thin plate (t = 10 μm, μ = 1.2) is placed in front of slit S₁. Experiment in air, λ = 500 nm. Central maxima shifts by xβ₀ (β₀ = fringe width before plate). Value of x is:',opts:['1','2','3','4']},
+  {id:67,type:'integer',text:'In YDSE, intensities at two points for path differences λ/4 and λ/3 are I₁ and I₂ respectively. I₀ = intensity from each slit individually. (I₁ + I₂)/I₀ = _____.'},
+  {id:68,type:'integer',text:'Unpolarised light (32 Wm⁻²) passes through 3 polaroids. Pass axis of 3rd is ⊥ to 1st. Emerging intensity = 3 Wm⁻². Angle between pass axes of first two polaroids = _____°.'},
+  {id:69,type:'mcq',fig:69,text:'Output Y of the given circuit (NAND gate followed by NOR gate) for inputs A and B is given by which truth table?',opts:['A=0,B=0→Y=1; A=0,B=1→Y=1; A=1,B=0→Y=1; A=1,B=1→Y=0','A=0,B=0→Y=1; A=0,B=1→Y=0; A=1,B=0→Y=0; A=1,B=1→Y=1','A=0,B=0→Y=0; A=0,B=1→Y=1; A=1,B=0→Y=1; A=1,B=1→Y=1','A=0,B=0→Y=0; A=0,B=1→Y=1; A=1,B=0→Y=1; A=1,B=1→Y=0']},
+  {id:70,type:'mcq',fig:70,text:'Each diode has forward bias resistance 25Ω. In the circuit (3 parallel diode branches D₁, D₂, D₃ each with 125Ω, and 25Ω at base, 5V source), which option is correct?',opts:['I₃/I₄ = 1','I₂/I₃ = 1','I₁/I₂ = 1','I₁/I₂ = 2']},
+  {id:71,type:'integer',text:'Monochromatic light on a hydrogen sample (ground state). Atoms absorb and emit 6 different wavelengths. Frequency of incident light = x × 10¹⁵ Hz. Value of x = _____. (h = 4.25×10⁻¹⁵ eVs)'},
+  {id:72,type:'mcq',text:'A sphere of relative density σ and diameter D has a concentric cavity of diameter d. The ratio D/d, if it just floats on water, is:',opts:['(σ/(σ−1))^(1/3)','((σ+1)/(σ−1))^(1/3)','((σ−1)/σ)^(1/3)','((σ−2)/(σ+2))^(1/3)']},
+  {id:73,type:'integer',text:'Parallel plate capacitor (plate separation 5 mm) charged by a battery. A dielectric sheet (thickness 2 mm) is inserted keeping battery connected. Capacitor draws 25% more charge. Dielectric constant of sheet = _____.'},
+  {id:74,type:'mcq',fig:74,text:'The effective resistance between A and B in the given resistor network (each resistor = R) is:',opts:['(2/3)R','(8R/3)','(5R/3)','(4R/3)']},
+  {id:75,type:'mcq',text:'Identify correct characteristics of an adiabatic process in a monoatomic gas: (A) Internal energy constant. (B) Work done = change in internal energy. (C) T×V = constant. (D) P×V = constant. (E) Work done ∝ (T₂−T₁). Correct answer:',opts:['(A),(C),(D) only','(A),(C),(E) only','(B),(E) only','(B),(D) only']},
+];
+
+// STATE
+let current=0,userAnswers={},marked=new Set(),visited=new Set(),timerInterval,totalSecs=3*3600,submitted=false;
+
+function startTimer(){
+  timerInterval=setInterval(()=>{
+    if(submitted){clearInterval(timerInterval);return;}
+    totalSecs--;
+    const h=String(Math.floor(totalSecs/3600)).padStart(2,'0');
+    const m=String(Math.floor((totalSecs%3600)/60)).padStart(2,'0');
+    const s=String(totalSecs%60).padStart(2,'0');
+    const el=document.getElementById('timer');
+    el.textContent=`${h}:${m}:${s}`;
+    if(totalSecs<=600)el.classList.add('warning');
+    if(totalSecs<=0){clearInterval(timerInterval);submitTest();}
+  },1000);
+}
+
+function renderPalette(){
+  const pal=document.getElementById('qpalette');
+  pal.innerHTML='';
+  questions.forEach((q,i)=>{
+    const d=document.createElement('div');
+    d.className='qnum';
+    d.textContent=i+1;
+    if(i===current)d.classList.add('current');
+    if(marked.has(q.id))d.classList.add('marked');
+    else if(userAnswers[q.id]!==undefined)d.classList.add('answered');
+    else if(visited.has(q.id)&&i!==current)d.classList.add('skipped');
+    d.onclick=()=>goTo(i);
+    pal.appendChild(d);
+  });
+  const ans=Object.keys(userAnswers).length;
+  const skip=[...visited].filter(id=>userAnswers[id]===undefined&&!marked.has(id)).length;
+  document.getElementById('s-ans').textContent=ans;
+  document.getElementById('s-skip').textContent=skip;
+  document.getElementById('s-rem').textContent=75-ans-skip;
+  document.getElementById('qcur').textContent=current+1;
+}
+
+function renderQuestion(){
+  const q=questions[current];
+  visited.add(q.id);
+  const area=document.getElementById('q-area');
+  area.style.animation='none';area.offsetHeight;area.style.animation='fadein 0.2s';
+  const typeLabel=q.type==='mcq'?'MCQ · +4 / −1':'Integer Type · +4 / 0';
+  let html=`<div class="q-tag">${typeLabel}</div>`;
+  html+=`<div class="q-text">${q.text}</div>`;
+  if(q.fig&&figs[q.fig]){
+    html+=`<div class="fig-wrap">${figs[q.fig]}</div>`;
+  }
+  if(q.type==='mcq'){
+    html+='<div class="options">';
+    const keys=['A','B','C','D'];
+    q.opts.forEach((opt,i)=>{
+      const sel=userAnswers[q.id]===String(i+1)?'selected':'';
+      html+=`<div class="option ${sel}" onclick="selectOpt(${i+1})"><div class="option-key">${keys[i]}</div><div>${opt}</div></div>`;
+    });
+    html+='</div>';
+  } else {
+    const val=userAnswers[q.id]||'';
+    html+=`<div class="integer-input-wrap"><div class="integer-label">Enter your answer (numerical value):</div><input type="number" class="integer-input" id="int-inp" placeholder="Type answer..." value="${val}" oninput="saveInteger(this.value)" onkeydown="if(event.key==='Enter')nextQ()"></div>`;
+  }
+  area.innerHTML=html;
+  if(q.type==='integer')setTimeout(()=>{const el=document.getElementById('int-inp');if(el)el.focus();},50);
+  renderPalette();
+}
+
+function selectOpt(n){const q=questions[current];userAnswers[q.id]=String(n);renderQuestion();}
+function saveInteger(val){const q=questions[current];if(val.trim()==='')delete userAnswers[q.id];else userAnswers[q.id]=val.trim();renderPalette();}
+function goTo(i){current=i;renderQuestion();}
+function nextQ(){if(current<74){current++;renderQuestion();}}
+function prevQ(){if(current>0){current--;renderQuestion();}}
+function markReview(){const q=questions[current];if(marked.has(q.id))marked.delete(q.id);else marked.add(q.id);renderPalette();}
+function clearResponse(){const q=questions[current];delete userAnswers[q.id];renderQuestion();}
+
+function confirmSubmit(){
+  const ans=Object.keys(userAnswers).length;
+  if(confirm(`You have answered ${ans} out of 75 questions.\nSubmit the test?`))submitTest();
+}
+
+function submitTest(){
+  if(submitted)return;
+  submitted=true;
+  clearInterval(timerInterval);
+  let correct=0,wrong=0,unattempted=0;
+  const details=[];
+  questions.forEach(q=>{
+    const ua=userAnswers[q.id];
+    const key=answerKey[q.id];
+    const isCorrect=ua!==undefined&&ua.toString().toLowerCase()===key.toString().toLowerCase();
+    const isWrong=ua!==undefined&&!isCorrect;
+    if(isCorrect)correct++;
+    else if(isWrong)wrong++;
+    else unattempted++;
+    details.push({id:q.id,ua,key,isCorrect,isWrong});
+  });
+  const score=correct*4-wrong*1;
+  document.getElementById('q-area').style.display='none';
+  const rs=document.getElementById('result-screen');
+  rs.style.display='flex';
+  const detailRows=details.map(d=>{
+    let cls='rb-skip',label='Not attempted';
+    if(d.isCorrect){cls='rb-correct';label=`Your ans: ${d.ua} ✓`;}
+    else if(d.isWrong){cls='rb-wrong';label=`Your ans: ${d.ua} ✗`;}
+    return `<div class="rb-row"><div class="rb-qn">Q${d.id}</div><div class="rb-ans ${cls}">${label}</div><div class="rb-key">Key: ${d.key}</div></div>`;
+  }).join('');
+  rs.innerHTML=`<div class="result-card">
+    <div class="result-title">Test Complete — JEE MAIN 2026 Part 2</div>
+    <div class="result-score">${score}</div>
+    <div class="result-max">out of 300 marks &nbsp;·&nbsp; +4/−1 scoring</div>
+    <div class="result-grid">
+      <div class="res-box"><div class="res-num rn-c">${correct}</div><div class="res-lbl">Correct (+4)</div></div>
+      <div class="res-box"><div class="res-num rn-w">${wrong}</div><div class="res-lbl">Wrong (−1)</div></div>
+      <div class="res-box"><div class="res-num rn-u">${unattempted}</div><div class="res-lbl">Unattempted</div></div>
+    </div>
+    <div class="result-breakdown">
+      <div class="rb-title">Answer Review</div>
+      <div class="rb-scroll">${detailRows}</div>
+    </div>
+    <button class="btn btn-primary btn-retake" onclick="retake()">Retake Test</button>
+  </div>`;
+}
+
+function retake(){
+  userAnswers={};marked.clear();visited.clear();
+  current=0;submitted=false;totalSecs=3*3600;
+  document.getElementById('q-area').style.display='';
+  document.getElementById('result-screen').style.display='none';
+  document.getElementById('timer').classList.remove('warning');
+  document.getElementById('timer').textContent='03:00:00';
+  renderQuestion();startTimer();
+}
+
+renderQuestion();
+startTimer();
+</script>
+</body>
+</html>

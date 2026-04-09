@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: jee-study-hub
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RECAPTCHA_SECRET_KEY
+        sync: false
+    disk:
+      name: db-storage
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1

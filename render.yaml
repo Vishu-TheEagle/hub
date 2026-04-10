@@ -8,7 +8,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: RECAPTCHA_SECRET_KEY
-       value: 6Lf2Lq8sAAAAAAZbUw84Xuu4JF_wiLFkfo9Kn_Dw
+       value:6LcewbAsAAAAAOOqAIrURkxPn74xPtw7rMh9QeDt
     disk:
       name: db-storage
       mountPath: /opt/render/project/src/data
